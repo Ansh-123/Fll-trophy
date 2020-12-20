@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private GoogleApiClient googleApiClient;
     TextView textView;
     private static final int RC_SIGN_IN = 1;
-
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             public void onClick(View view) {
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(intent,RC_SIGN_IN);
+
+                imageView = findViewById(R.id.imageView);
             }
         });
 
