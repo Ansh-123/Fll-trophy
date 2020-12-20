@@ -71,7 +71,7 @@ import java.util.Set;
     }
     private List<Exercise> populateExercises() {
         List<Exercise> returnVal = new ArrayList<>();
-        for (int level = 1; level < 2; level++) {
+        for (int level = 1; level < 11; level++) {
             returnVal.add(createExercise("walk", 50*level, "steps"));
             returnVal.add(createExercise("run", 50*level, "steps"));
             returnVal.add(createExercise("Jumping Jacks", 10*level, "jumps"));
