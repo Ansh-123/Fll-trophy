@@ -1,48 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ProfileActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/profileImage"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/name"
-            android:text="name"
-            android:textSize="20dp"
-            android:layout_marginTop="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:textSize="20dp"
-            android:text="email"
-            android:layout_marginTop="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/userId"
-            android:textSize="20dp"
-            android:text="id"
-            android:layout_marginTop="20dp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logoutBtn"
-            android:text="Logout"
-            android:layout_marginTop="30dp"/>
-    </LinearLayout>
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="TODO"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="44dp"
+            android:text="name"
+            android:textSize="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="email"
+            android:textSize="10dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="66dp" />
+
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="380dp"
+            android:text="Logout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/playBtn"
+            android:layout_width="81dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="164dp"
+            android:layout_marginTop="448dp"
+            android:text="Play"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="389dp"
+            android:layout_height="411dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.727"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@android:drawable/btn_star_big_on"
+            tools:layout_editor_absoluteY="-7dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

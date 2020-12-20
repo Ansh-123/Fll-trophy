@@ -12,18 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="This is main activity, sign in to move next activity."
+        android:text="This is the exercise activity, it will show exercises."
         android:textSize="20dp" />
+    <Button
+        android:id= "@+id/startBtn"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:text= "Start"
+        android:textSize= "30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.google.android.gms.common.SignInButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/sign_in_button"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp">
-
-    </com.google.android.gms.common.SignInButton>
 
 </RelativeLayout>
