@@ -1,4 +1,4 @@
-package com.rishav.gloginexample.structures;
+package com.inspiron.trophyapp.structures;
 
 public class Exercise {
 

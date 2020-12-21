@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
     defaultConfig {
-        applicationId "com.rishav.gloginexample"
+        applicationId "com.inspiron.trophyapp"
         minSdkVersion 22
         targetSdkVersion 29
         versionCode 1

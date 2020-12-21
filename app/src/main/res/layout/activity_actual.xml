@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActualActivity">
+    tools:context="com.inspiron.trophyapp.ActualActivity">
     <TextView
         android:id="@+id/topText"
         android:layout_width="wrap_content"
