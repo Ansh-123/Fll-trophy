@@ -1,4 +1,4 @@
- package com.inspiron.trophyapp;
+package com.inspiron.trophyapp;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,27 +8,59 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.inspiron.trophyapp.R;
 import com.inspiron.trophyapp.structures.Exercise;
+import com.inspiron.trophyapp.structures.UserData;
 
 import java.util.ArrayList;
 import java.util.List;
 
- public class ActualActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class ActualActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    SignInButton signInButton;
-    private GoogleApiClient googleApiClient;
-    private static final int RC_SIGN_IN = 1;
-    List<Exercise> exercises = new ArrayList<>();
-    int currentExercise = 0;
+
+    private List<Exercise> exercises = new ArrayList<>();
+    private int currentExercise = 0;
+    private GoogleSignInAccount account;
+    private DatabaseReference mDatabase;
+    private UserData userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actual);
+        account = GoogleSignIn.getLastSignedInAccount(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(account.getId()).addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            userData = dataSnapshot.getValue(UserData.class);
+                        } else {
+                            //Username does not exist, let's create a new record
+                            userData = new UserData();
+                            userData.setId(account.getId());
+                            mDatabase.child("users").child(userData.getId()).setValue(userData);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
         selectExercise();
 
         Button nextBtn = findViewById(R.id.nextBtn);
@@ -36,15 +68,18 @@ import java.util.List;
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Update user record to say user finished exercise
+                userData.addOrUpdateLifeTimeExerciseStats(exercises.get(currentExercise).getName(), exercises.get(currentExercise).getAmount());
+                userData.addOrUpdateTodaysExerciseStats(exercises.get(currentExercise).getName(), exercises.get(currentExercise).getAmount());
+                mDatabase.child("users").child(userData.getId()).setValue(userData);
                 currentExercise++;
                 if (currentExercise < exercises.size()) {
                     selectExercise();
-                }
-                else {
+                } else {
                     TextView exerciseName = findViewById(R.id.textView);
                     exerciseName.setText("");
                     TextView topText = findViewById(R.id.topText);
-                    topText.setText("Congratulations!! You have complete full course!!");
+                    topText.setText("Congratulations!! You have completed the full course!!");
                     topText.setTextSize(30);
                 }
             }
@@ -62,18 +97,19 @@ import java.util.List;
         }
         Exercise selectedExercise = exercises.get(currentExercise);
         TextView exerciseName = findViewById(R.id.textView);
-        exerciseName.setText(selectedExercise.getName() +  " " +
+        exerciseName.setText(selectedExercise.getName() + " " +
                 selectedExercise.getAmount() + " " + selectedExercise.getUnitOfMeasure());
     }
+
     private List<Exercise> populateExercises() {
         List<Exercise> returnVal = new ArrayList<>();
         for (int level = 1; level < 11; level++) {
-            returnVal.add(createExercise("walk", 50*level, "steps"));
-            returnVal.add(createExercise("run", 50*level, "steps"));
-            returnVal.add(createExercise("Jumping Jacks", 10*level, "jumps"));
-            returnVal.add(createExercise("Push ups", 2*level, "Push ups"));
-            returnVal.add(createExercise("Jogging", 50*level, "Steps"));
-            returnVal.add(createExercise("Squat", 5*level, "squats"));
+            returnVal.add(createExercise("walk", 50 * level, "steps"));
+            returnVal.add(createExercise("run", 50 * level, "steps"));
+            returnVal.add(createExercise("Jumping Jacks", 10 * level, "jumps"));
+            returnVal.add(createExercise("Push ups", 2 * level, "Push ups"));
+            returnVal.add(createExercise("Jogging", 50 * level, "Steps"));
+            returnVal.add(createExercise("Squat", 5 * level, "squats"));
         }
         return returnVal;
     }

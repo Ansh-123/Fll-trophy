@@ -17,12 +17,7 @@ import com.inspiron.trophyapp.R;
 
 public class ExerciseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    SignInButton signInButton;
-    private GoogleApiClient googleApiClient;
-    TextView textView;
-    private static final int RC_SIGN_IN = 1;
     Button startBtn;
-    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
