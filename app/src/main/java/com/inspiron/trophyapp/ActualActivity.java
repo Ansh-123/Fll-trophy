@@ -34,11 +34,16 @@ public class ActualActivity extends AppCompatActivity implements GoogleApiClient
     private GoogleSignInAccount account;
     private DatabaseReference mDatabase;
     private UserData userData;
+    private String selectedWorkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actual);
+        selectedWorkout = getIntent().getStringExtra("SELECTED_WORKOUT");
+        TextView topText = findViewById(R.id.topText);
+        topText.setText("You selected " + selectedWorkout);
+
         account = GoogleSignIn.getLastSignedInAccount(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(account.getId()).addValueEventListener(
