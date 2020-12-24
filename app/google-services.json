@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "365251638935",
+    "firebase_url": "https://trophy-537ba-default-rtdb.firebaseio.com",
+    "project_id": "trophy-537ba",
+    "storage_bucket": "trophy-537ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365251638935:android:edb33caad709ba4f421bd2",
+        "android_client_info": {
+          "package_name": "com.inspiron.trophyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365251638935-fgnbbgpa2vpg0afv162q7avu7952t80i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7AK19TD2FvtHtUDMf9ncp8dFetSnLp7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365251638935-fgnbbgpa2vpg0afv162q7avu7952t80i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
