@@ -14,6 +14,7 @@
         <activity android:name="com.inspiron.trophyapp.ActualActivity"></activity>
         <activity android:name="com.inspiron.trophyapp.ExerciseActivity"></activity>
         <activity android:name="com.inspiron.trophyapp.ProfileActivity"></activity>
+        <activity android:name="com.inspiron.trophyapp.ScorecardActivity"></activity>
         <activity android:name="com.inspiron.trophyapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

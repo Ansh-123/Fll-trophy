@@ -31,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
     ImageView profileImage;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
-
+    private Button Scorecard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +43,16 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
             @Override
             public void onClick(View view) {
 
-                playBtn = findViewById(R.id.playBtn);
                 Intent intent = new Intent(ProfileActivity.this, ExerciseActivity.class);
+                startActivity(intent);
+            }
+        });
+        Scorecard  = findViewById(R.id.Scorecard);
+
+        Scorecard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, ScorecardActivity.class);
                 startActivity(intent);
             }
         });
