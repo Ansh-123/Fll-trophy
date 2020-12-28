@@ -12,17 +12,90 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="This is the exercise activity, it will show exercises."
+        android:text="Click on the activities to enter them."
         android:textSize="20dp" />
-    <Button
-        android:id= "@+id/startBtn"
-        android:layout_width="130dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:text= "Start"
-        android:textSize= "30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <RadioButton
+            android:id="@+id/EasyCore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Easy core workout"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/MediumCore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium core Workout" />
+        <RadioButton
+            android:id="@+id/HardCore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard core Workout" />
+
+        <RadioButton
+            android:id="@+id/EasyYoga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Easy Yoga Workout" />
+
+        <RadioButton
+            android:id="@+id/MediumYoga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Yoga Workout" />
+
+        <RadioButton
+            android:id="@+id/HardYoga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard Yoga Workout" />
+        <RadioButton
+            android:id="@+id/EasyArms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Easy Arm Workout" />
+        <RadioButton
+            android:id="@+id/MediumArms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Arm Workout" />
+        <RadioButton
+            android:id="@+id/HardArms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard Arm Workout" />
+        <RadioButton
+            android:id="@+id/EasyLegs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Easy Leg Workout" />
+        <RadioButton
+            android:id="@+id/MediumLegs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Leg Workout" />
+        <RadioButton
+            android:id="@+id/HardLegs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard Leg Workout" />
+
+        <Button
+            android:id="@+id/startBtn"
+            android:layout_width="130dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="50dp"
+            android:text="Start"
+            android:textSize="30dp" />
+    </RadioGroup>
 
 </RelativeLayout>
