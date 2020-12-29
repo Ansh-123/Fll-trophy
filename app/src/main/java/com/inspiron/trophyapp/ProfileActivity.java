@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.inspiron.trophyapp.R;
+import com.inspiron.trophyapp.structures.UserData;
 
 public class ProfileActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private Button playBtn;
@@ -31,10 +32,13 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
     ImageView profileImage;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
+    private UserData userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userData = (UserData) getIntent().getSerializableExtra("USER");
+
         setContentView(R.layout.activity_profile);
 
         playBtn = findViewById(R.id.playBtn);
@@ -45,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
 
                 playBtn = findViewById(R.id.playBtn);
                 Intent intent = new Intent(ProfileActivity.this, ExerciseActivity.class);
+                intent.putExtra("USER", userData);
                 startActivity(intent);
             }
         });

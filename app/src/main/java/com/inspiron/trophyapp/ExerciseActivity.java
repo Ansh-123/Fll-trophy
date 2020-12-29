@@ -17,18 +17,21 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.inspiron.trophyapp.R;
+import com.inspiron.trophyapp.structures.UserData;
 
 public class ExerciseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     RadioGroup radioGroup;
     RadioButton radioButton;
     TextView textView;
-
-
+    UserData userData;
     Button startBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userData = (UserData) getIntent().getSerializableExtra("USER");
+
         setContentView(R.layout.activity_exercise);
 
         radioGroup = findViewById(R.id.radioGroup);
@@ -42,6 +45,7 @@ public class ExerciseActivity extends AppCompatActivity implements GoogleApiClie
                 startBtn = findViewById(R.id.startBtn);
                 Intent intent = new Intent(ExerciseActivity.this, ActualActivity.class);
                 intent.putExtra("SELECTED_WORKOUT", radioButton.getText());
+                intent.putExtra("USER", userData);
                 startActivity(intent);
             }
         });
