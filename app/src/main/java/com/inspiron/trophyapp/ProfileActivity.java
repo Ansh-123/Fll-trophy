@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.inspiron.trophyapp.R;
+import com.inspiron.trophyapp.structures.UserData;
 
 public class ProfileActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private Button playBtn;
@@ -31,21 +32,35 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
     ImageView profileImage;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions gso;
-    private Button Scorecard;
+    private Button scorecardBtn;
+    private UserData userData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        userData = (UserData) getIntent().getSerializableExtra("USER");
 
         playBtn = findViewById(R.id.playBtn);
 
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                playBtn = findViewById(R.id.playBtn);
                 Intent intent = new Intent(ProfileActivity.this, ExerciseActivity.class);
+                intent.putExtra("USER", userData);
                 startActivity(intent);
+            }
+        });
+
+        scorecardBtn = findViewById(R.id.scorecardBtn);
+
+        scorecardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, ScorecardActivity.class);
+                intent.putExtra("USER", userData);
+                startActivity(intent);
+
             }
         });
 
