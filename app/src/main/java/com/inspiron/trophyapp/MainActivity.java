@@ -11,12 +11,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.inspiron.trophyapp.R;
+import com.inspiron.trophyapp.structures.UserData;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -25,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     TextView textView;
     private static final int RC_SIGN_IN = 1;
     ImageView imageView;
+    private GoogleSignInAccount account;
+    private DatabaseReference mDatabase;
+    private UserData userData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()){
-            gotoProfile();
+            readUserData();
         }else{
             Toast.makeText(getApplicationContext(),"Sign in cancel",Toast.LENGTH_LONG).show();
         }
@@ -70,11 +82,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void gotoProfile(){
         Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
+        intent.putExtra("USER", userData);
         startActivity(intent);
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    private void readUserData() {
+        account = GoogleSignIn.getLastSignedInAccount(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(account.getId()).addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            userData = dataSnapshot.getValue(UserData.class);
+                            gotoProfile();
+                        } else {
+                            //Username does not exist, let's create a new record
+                            userData = new UserData();
+                            userData.setId(account.getId());
+                            mDatabase.child("users").child(userData.getId()).setValue(userData);
+                            gotoProfile();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 }

@@ -1,9 +1,10 @@
 package com.inspiron.trophyapp.structures;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserData {
+public class UserData implements Serializable {
     private String id;
     private Map<String, Double> lifeTimeExerciseStats = new HashMap<>();
     private Map<String, Double> todaysExerciseStats = new HashMap<>();

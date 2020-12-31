@@ -11,15 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.FirebaseError;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.inspiron.trophyapp.R;
 import com.inspiron.trophyapp.structures.Exercise;
 import com.inspiron.trophyapp.structures.UserData;
 
@@ -41,30 +35,10 @@ public class ActualActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actual);
         selectedWorkout = getIntent().getStringExtra("SELECTED_WORKOUT");
+        userData = (UserData) getIntent().getSerializableExtra("USER");
+
         TextView topText = findViewById(R.id.topText);
         topText.setText("You selected " + selectedWorkout);
-
-        account = GoogleSignIn.getLastSignedInAccount(this);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(account.getId()).addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            userData = dataSnapshot.getValue(UserData.class);
-                        } else {
-                            //Username does not exist, let's create a new record
-                            userData = new UserData();
-                            userData.setId(account.getId());
-                            mDatabase.child("users").child(userData.getId()).setValue(userData);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
 
         selectExercise();
 
@@ -76,6 +50,7 @@ public class ActualActivity extends AppCompatActivity implements GoogleApiClient
                 // Update user record to say user finished exercise
                 userData.addOrUpdateLifeTimeExerciseStats(exercises.get(currentExercise).getName(), exercises.get(currentExercise).getAmount());
                 userData.addOrUpdateTodaysExerciseStats(exercises.get(currentExercise).getName(), exercises.get(currentExercise).getAmount());
+                mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("users").child(userData.getId()).setValue(userData);
                 currentExercise++;
                 if (currentExercise < exercises.size()) {
