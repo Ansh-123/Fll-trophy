@@ -39,7 +39,8 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        userData = (UserData) getIntent().getSerializableExtra("USER");
+        AppStatus appStatus = new AppStatus();
+        userData = appStatus.currentUserData;
 
         playBtn = findViewById(R.id.playBtn);
 
@@ -47,7 +48,6 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, ExerciseActivity.class);
-                intent.putExtra("USER", userData);
                 startActivity(intent);
             }
         });
@@ -58,7 +58,6 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, ScorecardActivity.class);
-                intent.putExtra("USER", userData);
                 startActivity(intent);
 
             }

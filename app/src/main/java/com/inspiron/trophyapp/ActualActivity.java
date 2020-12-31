@@ -35,7 +35,8 @@ public class ActualActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actual);
         selectedWorkout = getIntent().getStringExtra("SELECTED_WORKOUT");
-        userData = (UserData) getIntent().getSerializableExtra("USER");
+        final AppStatus appStatus = new AppStatus();
+        userData = appStatus.currentUserData;
 
         TextView topText = findViewById(R.id.topText);
         topText.setText("You selected " + selectedWorkout);
@@ -52,6 +53,7 @@ public class ActualActivity extends AppCompatActivity implements GoogleApiClient
                 userData.addOrUpdateTodaysExerciseStats(exercises.get(currentExercise).getName(), exercises.get(currentExercise).getAmount());
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.child("users").child(userData.getId()).setValue(userData);
+                appStatus.currentUserData = userData;
                 currentExercise++;
                 if (currentExercise < exercises.size()) {
                     selectExercise();
@@ -94,7 +96,7 @@ public class ActualActivity extends AppCompatActivity implements GoogleApiClient
         return returnVal;
     }
 
-    private Exercise createExercise(String name, double amount, String unitOfMeasure) {
+    private Exercise createExercise(String name, int amount, String unitOfMeasure) {
         Exercise exercise = new Exercise();
         exercise.setName(name);
         exercise.setAmount(amount);

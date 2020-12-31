@@ -30,7 +30,8 @@ public class ExerciseActivity extends AppCompatActivity implements GoogleApiClie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userData = (UserData) getIntent().getSerializableExtra("USER");
+        AppStatus appStatus = new AppStatus();
+        userData = appStatus.currentUserData;
 
         setContentView(R.layout.activity_exercise);
 
@@ -45,7 +46,6 @@ public class ExerciseActivity extends AppCompatActivity implements GoogleApiClie
                 startBtn = findViewById(R.id.startBtn);
                 Intent intent = new Intent(ExerciseActivity.this, ActualActivity.class);
                 intent.putExtra("SELECTED_WORKOUT", radioButton.getText());
-                intent.putExtra("USER", userData);
                 startActivity(intent);
             }
         });

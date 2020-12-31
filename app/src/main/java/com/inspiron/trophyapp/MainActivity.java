@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     ImageView imageView;
     private GoogleSignInAccount account;
     private DatabaseReference mDatabase;
-    private UserData userData;
+    private AppStatus appStatus = new AppStatus();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void gotoProfile() {
         Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-        intent.putExtra("USER", userData);
         startActivity(intent);
     }
 
@@ -99,16 +98,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         boolean goToProfile = false;
-                        if (userData == null)  {
+                        if (appStatus.currentUserData == null)  {
                             goToProfile = true;
                         }
                         if (dataSnapshot.exists()) {
-                            userData = dataSnapshot.getValue(UserData.class);
+                            appStatus.currentUserData  = dataSnapshot.getValue(UserData.class);
                         } else {
                             //Username does not exist, let's create a new record
-                            userData = new UserData();
-                            userData.setId(account.getId());
-                            mDatabase.child("users").child(userData.getId()).setValue(userData);
+                            appStatus.currentUserData  = new UserData();
+                            appStatus.currentUserData .setId(account.getId());
+                            mDatabase.child("users").child(
+                                    appStatus.currentUserData .getId()).setValue(appStatus.currentUserData );
                         }
                         if (goToProfile) {
                             gotoProfile();

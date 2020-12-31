@@ -4,7 +4,7 @@ public class Exercise {
 
     private String name;
     private String description;
-    private double amount;
+    private int amount;
     private String animation;
     private String unitOfMeasure;
 
@@ -24,11 +24,11 @@ public class Exercise {
         this.description = description;
     }
 
-    public double getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

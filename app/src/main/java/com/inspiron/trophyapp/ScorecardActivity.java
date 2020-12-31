@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.inspiron.trophyapp.structures.NameAndAmount;
 import com.inspiron.trophyapp.structures.UserData;
 
 import java.util.ArrayList;
@@ -34,16 +35,17 @@ public class ScorecardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scorecard);
-        userData = (UserData) getIntent().getSerializableExtra("USER");
+        AppStatus appStatus = new AppStatus();
+        userData = appStatus.currentUserData;
 
 
         // We need to query user data
 
         // Display the data
         account = GoogleSignIn.getLastSignedInAccount(this);
-        List<String> exercises = new ArrayList<String>();
-        exercises.addAll(userData.getLifeTimeExerciseStats().keySet());
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        List<NameAndAmount> exercises = new ArrayList<NameAndAmount>();
+        exercises.addAll(userData.getLifeTimeExerciseStats().values());
+        final ArrayAdapter<NameAndAmount> adapter = new ArrayAdapter<NameAndAmount>(this,
                 simple_list_item_1, exercises);
         ListView todaysList = (ListView) findViewById(R.id.scorecardId);
         todaysList.setAdapter(adapter);
